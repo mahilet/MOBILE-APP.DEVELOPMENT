@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Window;
 import android.widget.Adapter;
 import android.widget.RelativeLayout;
 
@@ -41,11 +40,12 @@ public class MyMoviesList extends AppCompatActivity {
     };
 
 
+    String[] buttonsArray = {"TL", "TR", "BL", "BR" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+
         setContentView(R.layout.activity_my_movies_list);
 
         context = getApplicationContext();
@@ -53,18 +53,27 @@ public class MyMoviesList extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.relativelayout);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-
         recylerViewLayoutManager = new GridLayoutManager(context, 2);
 
         //recyclerView.setLayoutManager(recylerViewLayoutManager);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //or any layout manager (grid etc)
 
+//        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+//                R.activity_recycler_view, buttonsArray);
+//
+//        TextView textView = (TextView) findViewById(R.id.activity_recycler_view);
+//        textView.setAdapter(adapter);
+//        ViewGroup header = (ViewGroup) getLayoutInflater().inflate(R.layout.list_header, textView,
+//                false);
+//        textView.addHeaderView(header, null, false);
+
 
         recyclerViewAdapter = (Adapter) new RecyclerViewAdapter(context,Movie);
 
+
         recyclerView.setAdapter((RecyclerView.Adapter) recyclerViewAdapter);
+
 
 
 

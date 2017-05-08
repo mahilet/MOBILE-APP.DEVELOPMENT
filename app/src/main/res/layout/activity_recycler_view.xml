@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/activity_horizontal_margin"
     android:weightSum="1">
+    <include layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/subject_textview1"

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -32,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         mButton = (Button) findViewById(R.id.button);
 
         mButton.setOnClickListener(this);
@@ -52,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(btn.getId() == R.id.button){
             myEditText = (EditText) findViewById(R.id.message);
             String message = myEditText.getText().toString();
-            Intent intent = new Intent(this, detailActivity.class);
+            Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra(MESSAGE_TO_PASS, message);
             startActivity(intent);
 
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, detailActivity.class);
+        Intent intent = new Intent(this, DetailActivity.class);
         EditText editText = (EditText) findViewById(R.id.message);
         String message = editText.getText().toString();
         intent.putExtra(MESSAGE_TO_PASS, message);
@@ -122,6 +128,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater  menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.my_app_menu, menu);
+        return true;
+    }
+
+
 
 }
 

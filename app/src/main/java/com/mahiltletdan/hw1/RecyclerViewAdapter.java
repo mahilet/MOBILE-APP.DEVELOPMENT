@@ -39,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
 
 
 

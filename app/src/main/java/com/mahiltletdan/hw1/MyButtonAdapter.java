@@ -12,6 +12,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 public class MyButtonAdapter extends BaseAdapter {
 
+
     Context context;
     Button buttons[];
     LayoutInflater MyMoviesList;

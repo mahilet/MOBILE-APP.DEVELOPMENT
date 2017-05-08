@@ -9,9 +9,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/back"
-    android:id="@id/activity_detail"
-    tools:context="com.mahiltletdan.hw1.detailActivity">
 
+    tools:context="com.mahiltletdan.hw1.DetailActivity">
+
+    <include layout="@layout/toolbar" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="603dp"
