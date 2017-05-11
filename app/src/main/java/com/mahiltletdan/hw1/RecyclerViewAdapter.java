@@ -1,4 +1,5 @@
 package com.mahiltletdan.hw1;
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter
 
 
 
+//        view1 = LayoutInflater.from(context).inflate(R.layout.activity_recycler_view, parent, false);
         view1 = LayoutInflater.from(context).inflate(R.layout.activity_recycler_view, parent, false);
 
         viewHolder1 = new ViewHolder(view1);
@@ -62,4 +64,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter
 
         return Movie.length;
     }
+
+
 }

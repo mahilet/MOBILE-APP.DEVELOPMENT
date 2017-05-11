@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -20,40 +18,20 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG= DetailActivity.class.getSimpleName();
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        MenuItem itemToHide = menu.findItem(R.id.action_about);
-        itemToHide.setVisible(false);
-        return true;
-
-
-    }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item
-        if (item.getItemId() == R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.action_about) {
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.action_movie_list) {
-            Intent intent = new Intent(this, MyMoviesList.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        //Main App Menu
+        Toolbar ToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(ToolBar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
         if (savedInstanceState != null) {
             Log.d(TAG, "onCreate() Restoring previous state");
             /* restore state */
@@ -73,12 +51,6 @@ public class DetailActivity extends AppCompatActivity {
         //append state name with TextView static text
 
         Log.d(TAG, "onCreate()");
-
-        //Main App Menu
-        Toolbar ToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(ToolBar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }

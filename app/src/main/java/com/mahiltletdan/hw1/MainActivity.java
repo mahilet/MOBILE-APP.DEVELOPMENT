@@ -1,13 +1,20 @@
 package com.mahiltletdan.hw1;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,6 +26,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //define MESSAGE_TO_PASS String
     public static String MESSAGE_TO_PASS = "package com.mahiltletdan.hw1;";
+    private static final String TAG= DetailActivity.class.getSimpleName();
+
 
     EditText myEditText;
     Button mButton;
@@ -45,13 +54,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ButtonAdapter(this));
 
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder myBuilder = new AlertDialog.Builder(MainActivity.this);
+                myBuilder.setIcon(android.R.drawable.ic_menu_preferences);
+                myBuilder.setTitle(R.string.main_dialog_title);
+                myBuilder.setMessage(R.string.main_dialog_title)
+                        .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Log.d(TAG, "user answered yes");
+
+                            }
+                        })
+                        .setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Log.d(TAG, "user answered no");
+                            }
+                        });
+
+
+
+
+                myBuilder.setCancelable(false);
+                AlertDialog alertDialog = myBuilder.create();
+                alertDialog.show();
+
+            }
+
+         ;
+        });
+
     }
 
 
     @Override
     public void onClick(View v) {
         Button btn = (Button) v;
-
 
 
         Log.d("CLICK", "clicked button");
@@ -122,8 +163,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(mContext, "" + v.getId(),
                                 Toast.LENGTH_SHORT).show();
                     }
+
                 }
             });
+
+            //button.setOnClickListener(new BtnOnClickListener(position));
             return button;
         }
 
@@ -136,7 +180,103 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item
+        if (item.getItemId() == R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.action_movie_list) {
+            Intent intent = new Intent(this, MyMoviesList.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+//fab
 
+
+    class BtnOnClickListener implements View.OnClickListener
+    {
+
+        public void onClick(View v)
+        {
+            Log.d(TAG, "tapped button");
+            showList(v.getId());
+
+            int id = v.getId();
+            switch (id) {
+                case 0:
+                    Intent intentL = new Intent(getBaseContext(), MyMoviesList.class);
+                    startActivity(intentL);
+                    break;
+                case 1:
+                    Intent intentR = new Intent(getBaseContext(), RecyclerViewAdapter.class);
+                    startActivity(intentR);
+                    break;
+                case 2:
+                    Intent intentM = new Intent(getBaseContext(), AboutActivity.class);
+                    startActivity(intentM);
+                    break;
+                default:
+                    Button b = (Button) v;
+                    String label = b.getText().toString();
+                    Toast.makeText(MainActivity.this, label,
+                            Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
+
+    public void showList(int id){
+        if (id==0){
+            Intent recycle = new Intent(this, RecyclerViewAdapter.class);
+            startActivity(recycle);
+        }else if(id==1){
+            DialogFragment newFragment = new CustomDialogFragment();
+            newFragment.show(getSupportFragmentManager(), "main_dialog");
+        }else {
+            Toast.makeText(MainActivity.this, "" + id,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+
+    public static class CustomDialogFragment extends DialogFragment {
+             @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+
+            return inflater.inflate(R.layout.main_dialog, container, false);
+        }
+
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.main_dialog_title)
+                    .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Log.d(TAG, "user answered yes");
+                        }
+                    })
+                    .setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Log.d(TAG, "user answered no");
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            return builder.create();
+        }
+    }
 
 }
 

@@ -15,6 +15,9 @@
         my transition to computer science.</string>
 
     <string name="btn_string">1</string>
+    <string name="main_dialog_title">Do you want Give Comment  about a Movies </string>
+    <string name="dialog_yes">Yes?</string>
+    <string name="dialog_no">No?</string>
     <string name="demo_list_header">Demos</string>
     <string name="activity_recycler_view">Today Movie List</string>
     <string name="action_home">Home</string>

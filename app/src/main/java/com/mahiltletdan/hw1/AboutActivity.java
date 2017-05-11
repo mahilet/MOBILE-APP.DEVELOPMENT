@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class AboutActivity extends AppCompatActivity {
@@ -33,22 +35,13 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item
-        if (item.getItemId() == R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.action_about) {
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.action_movie_list) {
-            Intent intent = new Intent(this, MyMoviesList.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        MenuItem itemToHide = menu.findItem(R.id.action_about);
+        itemToHide.setVisible(false);
+        return true;
 
+
+    }
 
 }
