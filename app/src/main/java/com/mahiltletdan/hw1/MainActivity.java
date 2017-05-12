@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //define MESSAGE_TO_PASS String
     public static String MESSAGE_TO_PASS = "package com.mahiltletdan.hw1;";
-    private static final String TAG= DetailActivity.class.getSimpleName();
+    private static final String TAG= "AD340";
 
 
     EditText myEditText;
@@ -75,9 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         });
 
-
-
-
                 myBuilder.setCancelable(false);
                 AlertDialog alertDialog = myBuilder.create();
                 alertDialog.show();
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
 
         }else {
-            makeToast(btn.getText().toString());
+          makeToast(btn.getText().toString());
         }
     }
 
@@ -200,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //fab
 
 
+
     class BtnOnClickListener implements View.OnClickListener
     {
 
@@ -215,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intentL);
                     break;
                 case 1:
-                    Intent intentR = new Intent(getBaseContext(), RecyclerViewAdapter.class);
+                    Intent intentR = new Intent(getBaseContext(), CustomRecyclerAdapter.class);
                     startActivity(intentR);
                     break;
                 case 2:
@@ -234,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void showList(int id){
         if (id==0){
-            Intent recycle = new Intent(this, RecyclerViewAdapter.class);
+            Intent recycle = new Intent(this, CustomRecyclerAdapter.class);
             startActivity(recycle);
         }else if(id==1){
             DialogFragment newFragment = new CustomDialogFragment();

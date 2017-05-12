@@ -41,6 +41,7 @@ public class MyButtonAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         final int position = i;
+
         Button button = new Button(context);
         button.setId(i);
         button.setBackgroundColor(Color.parseColor("FFFFFF"));

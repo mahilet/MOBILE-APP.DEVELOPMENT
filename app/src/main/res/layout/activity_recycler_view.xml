@@ -6,12 +6,12 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/activity_horizontal_margin"
     android:weightSum="1">
-    <include layout="@layout/toolbar" />
+
 
     <TextView
         android:id="@+id/subject_textview1"
-        android:layout_width="165dp"
-        android:layout_height="330dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="left"
         android:layout_marginLeft="30dp"
@@ -27,8 +27,8 @@
 
     <TextView
         android:id="@+id/subject_textview2"
-        android:layout_width="133dp"
-        android:layout_height="329dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="left"
         android:layout_marginLeft="30dp"
