@@ -6,9 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MyMoviesList extends AppCompatActivity {
 
@@ -16,34 +26,39 @@ public class MyMoviesList extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter recyclerViewAdapter;
     RecyclerView.LayoutManager recylerViewLayoutManager;
+//
+//    String[][] movies = {
+//            {"Mad Max: Fury Road", "Action & Adventure"},
+//            {"Inside Out", "Animation, Kids & Family"},
+//            {"Shaun the Sheep", "Animation"},
+//            {"The Martian", "Science Fiction & Fantasy"},
+//            {"Mission: Impossible Rogue Nation", "Action"},
+//            {"Up", "Animation", "Star Trek"},
+//            {"Science Fiction", "The LEGO Movie"},
+//            {"Animation", "Iron Man", "Action & Adventure", },
+//            {"Aliens", "Science Fiction"},
+//            {"Chicken Run", "Animation"},
+//            {"Back to the Future", "Science Fiction"},
+//            {"Raiders of the Lost Ark", "Action & Adventure"},
+//            {"Goldfinger", "Action & Adventure"},
+//            {"Guardians of the Galaxy", "Science Fiction & Fantasy"},
+//            {"Mad Max: Fury Road", "Action & Adventure"},
+//           {"Inside Out", "Animation, Kids & Family"},
+//
+//
+//    };
 
-    String[][] movies = {
-            {"Mad Max: Fury Road", "Action & Adventure"},
-            {"Inside Out", "Animation, Kids & Family"},
-            {"Shaun the Sheep", "Animation"},
-            {"The Martian", "Science Fiction & Fantasy"},
-            {"Mission: Impossible Rogue Nation", "Action"},
-            {"Up", "Animation", "Star Trek"},
-            {"Science Fiction", "The LEGO Movie"},
-            {"Animation", "Iron Man", "Action & Adventure", },
-            {"Aliens", "Science Fiction"},
-            {"Chicken Run", "Animation"},
-            {"Back to the Future", "Science Fiction"},
-            {"Raiders of the Lost Ark", "Action & Adventure"},
-            {"Goldfinger", "Action & Adventure"},
-            {"Guardians of the Galaxy", "Science Fiction & Fantasy"},
-            {"Mad Max: Fury Road", "Action & Adventure"},
-           {"Inside Out", "Animation, Kids & Family"},
-
-
-    };
-
+    String[][] movies = new String[15][2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_movies_list);
+
+        final TextView mTxtDisplay = (TextView) findViewById(R.id.json_text);
+        String url = "http://mahitletdan.com/MobileApp/ad340/json_file.txt";
 
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
@@ -58,23 +73,72 @@ public class MyMoviesList extends AppCompatActivity {
         recyclerViewAdapter = new CustomAdapter();
         recyclerView.setAdapter(recyclerViewAdapter);
 
+
+
+
+        JsonArrayRequest jsObjRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+
+                String TAG = null;
+                Log.d(TAG, "JSON onResponse started");
+                Log.d(TAG, response.toString());
+
+                try {
+//                    int total = response.length();
+                    String moviesJson = "";
+
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject JO = response.getJSONObject(i);
+                        String titleString = JO.getString("title");
+                        String categoryString = JO.getString("genre");
+                        movies[i][0] = titleString;
+                        movies[i][1] = categoryString;
+                        moviesJson += titleString + " ";
+                        moviesJson += categoryString;
+
+                    }
+                    recyclerViewAdapter.notifyDataSetChanged();
+
+                    mTxtDisplay.setText(moviesJson);
+
+
+                } catch (JSONException e) {
+                    e.getStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        Singleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
+
 
     public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
-            public TextView mTitle;
-            public TextView mDetail;
+
+            public TextView titleText;
+            public TextView categoryText;
+
             public ViewHolder(View v) {
                 super(v);
-                mTitle = (TextView) v.findViewById(R.id.subject_textview1);
-                mDetail = (TextView) v.findViewById(R.id.subject_textview2);
+                titleText = (TextView) v.findViewById(R.id.titleView);
+                categoryText = (TextView) v.findViewById(R.id.categoryView);
             }
         }
 
+
         @Override
-        public CustomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        public CustomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             // Inflate the view for this view holder
             View item = getLayoutInflater().inflate(R.layout.activity_recycler_view, parent,
@@ -86,21 +150,19 @@ public class MyMoviesList extends AppCompatActivity {
             return vh;
         }
 
-        // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
-            holder.mTitle.setText(movies[position][0]);
-            holder.mDetail.setText(movies[position][1]);
+
+            holder.titleText.setText(movies[position][0]);
+            holder.categoryText.setText(movies[position][1]);
         }
 
-        // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
+
             return movies.length;
         }
+
+
     }
-
-
 }

@@ -13,7 +13,7 @@
         />
 
     <TextView
-        android:id="@+id/subject_textview1"
+        android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -29,10 +29,10 @@
 
 
     <TextView
-        android:id="@+id/subject_textview2"
+        android:id="@+id/categoryView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/subject_textview1"
+        android:layout_toRightOf="@+id/titleView"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"

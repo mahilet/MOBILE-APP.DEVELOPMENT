@@ -17,11 +17,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //define MESSAGE_TO_PASS String
@@ -43,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate() Main created");
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,6 +57,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButton = (Button) findViewById(R.id.button);
 
         mButton.setOnClickListener(this);
+
+        try {
+            if (isConnected() == true) {
+                Toast.makeText(MainActivity.this, "You are connected",
+                        Toast.LENGTH_LONG).show();
+
+            }else {
+                Toast.makeText(MainActivity.this, "You are not connected",
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ButtonAdapter(this));
@@ -84,6 +107,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          ;
         });
 
+    }
+
+    private boolean isConnected() throws InterruptedException, IOException
+    {
+        String command = "ping -c 1 google.com";
+        return (Runtime.getRuntime().exec (command).waitFor() == 0);
+    } {
     }
 
 
@@ -150,6 +180,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             button.setText(buttonsArray[position]);
             button.setId(position);
+            button.setOnClickListener(new BtnOnClickListener());
+            //button.setOnClickListener(new BtnOnClickListener(position));
+
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -248,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public static class CustomDialogFragment extends DialogFragment {
-             @Override
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
@@ -274,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Create the AlertDialog object and return it
             return builder.create();
         }
+
     }
 
 }

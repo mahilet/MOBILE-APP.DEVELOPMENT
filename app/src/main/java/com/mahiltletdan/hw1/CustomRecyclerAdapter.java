@@ -29,17 +29,18 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView, textView2;
-        public ViewHolder(View v){
+        public TextView titleText;
+        public TextView categoryText;
+        public ViewHolder(View v) {
             super(v);
-            textView = (TextView)v.findViewById(R.id.subject_textview1);
-            textView2 = (TextView)v.findViewById(R.id.subject_textview2);
+            titleText = (TextView) v.findViewById(R.id.titleView);
+            categoryText = (TextView) v.findViewById(R.id.categoryView);
         }
     }
 
     @Override
     public CustomRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-//        view1 = LayoutInflater.from(context).inflate(R.layout.activity_recycler_view, parent, false);
+
         view1 = LayoutInflater.from(context).inflate(R.layout.activity_recycler_view, parent, false);
 
         viewHolder1 = new ViewHolder(view1);
@@ -50,8 +51,8 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
 
-        holder.textView.setText(movies[position][0]);
-        holder.textView2.setText(movies[position][1]);
+        holder.titleText.setText(movies[position][0]);
+        holder.categoryText.setText(movies[position][1]);
     }
 
     @Override
