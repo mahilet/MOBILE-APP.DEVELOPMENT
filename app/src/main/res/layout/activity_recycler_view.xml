@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/activity_horizontal_margin"
-    android:weightSum="1">
-
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TwoLineListItem
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingTop="2dip"
+        android:paddingBottom="2dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:mode="oneLine"
+        />
 
     <TextView
         android:id="@+id/subject_textview1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="left"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:ellipsize="end"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:ignore="InefficientWeight,ObsoleteLayoutParam,RtlHardcoded,Suspicious0dp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="50dp"
-        android:layout_weight="0.18" />
+        android:layout_gravity="right"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_weight="2"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
 
 
     <TextView
         android:id="@+id/subject_textview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="left"
-        android:layout_marginLeft="30dp"
-        android:ellipsize="end"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:ignore="InefficientWeight,ObsoleteLayoutParam,RtlHardcoded,Suspicious0dp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="50dp"
-        android:layout_weight="0.61" />
-</LinearLayout>
+        android:layout_toRightOf="@+id/subject_textview1"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_weight="1"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16dp" />
+
+    </RelativeLayout>
 
 

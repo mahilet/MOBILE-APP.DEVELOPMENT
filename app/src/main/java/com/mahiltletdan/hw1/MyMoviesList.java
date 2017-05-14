@@ -20,8 +20,7 @@ public class MyMoviesList extends AppCompatActivity {
     String[][] movies = {
             {"Mad Max: Fury Road", "Action & Adventure"},
             {"Inside Out", "Animation, Kids & Family"},
-            {"Star Wars: Episode VII - The Force Awakens", "Action"},
-            {"Shaun the Sheep", "Animation", "2015"},
+            {"Shaun the Sheep", "Animation"},
             {"The Martian", "Science Fiction & Fantasy"},
             {"Mission: Impossible Rogue Nation", "Action"},
             {"Up", "Animation", "Star Trek"},
