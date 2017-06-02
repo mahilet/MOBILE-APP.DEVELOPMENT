@@ -9,13 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-
+import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,16 +49,18 @@ public class MyMoviesList extends AppCompatActivity {
 //    };
 
     String[][] movies = new String[15][2];
+    String url = "http://mahitletdan.com/MobileApp/ad340/myjson.json";
+
+    String TAG = "MOVIES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+    //    requestWindowFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_movies_list);
 
         final TextView mTxtDisplay = (TextView) findViewById(R.id.json_text);
-        String url = "http://mahitletdan.com/MobileApp/ad340/json_file.txt";
 
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
@@ -71,17 +73,17 @@ public class MyMoviesList extends AppCompatActivity {
 
         recyclerView.setLayoutManager(recylerViewLayoutManager);
         recyclerViewAdapter = new CustomAdapter();
-        recyclerView.setAdapter(recyclerViewAdapter);
+       recyclerView.setAdapter(recyclerViewAdapter);
 
 
 
 
-        JsonArrayRequest jsObjRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
 
             @Override
             public void onResponse(JSONArray response) {
 
-                String TAG = null;
                 Log.d(TAG, "JSON onResponse started");
                 Log.d(TAG, response.toString());
 
@@ -105,20 +107,21 @@ public class MyMoviesList extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
+                    Log.d(TAG, "JSON Error: " + e.getMessage());
                     e.getStackTrace();
                 }
 
             }
-        }, new Response.ErrorListener() {
-
+        },  new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-
+                Log.d("JSON", "Error: " + error.getMessage());
             }
         });
-        Singleton.getInstance(this).addToRequestQueue(jsObjRequest);
-    }
+        // Add the request to the RequestQueue.
+        queue.add(jsonReq);
+
+    };
 
 
     public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
@@ -163,6 +166,13 @@ public class MyMoviesList extends AppCompatActivity {
             return movies.length;
         }
 
+    }
 
+    /**
+     * Created by brikinesh on 6/1/2017.
+     */
+
+    public static class Constants {
     }
 }
+

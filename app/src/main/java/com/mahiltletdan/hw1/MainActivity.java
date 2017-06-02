@@ -24,12 +24,16 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //define MESSAGE_TO_PASS String
     public static String MESSAGE_TO_PASS = "package com.mahiltletdan.hw1;";
     private static final String TAG= "AD340";
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 
     EditText myEditText;
@@ -225,11 +229,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, MyMoviesList.class);
             startActivity(intent);
         }
+            if (item.getItemId() == R.id.map) {
+                Intent intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 //fab
-
-
 
     class BtnOnClickListener implements View.OnClickListener
     {
@@ -253,6 +259,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Intent intentM = new Intent(getBaseContext(), AboutActivity.class);
                     startActivity(intentM);
                     break;
+                case 3:
+                    Intent intentN = new Intent(getBaseContext(), MapActivity.class);
+                    startActivity(intentN);
+                    break;
                 default:
                     Button b = (Button) v;
                     String label = b.getText().toString();
@@ -275,8 +285,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
 
 
@@ -308,6 +316,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return builder.create();
         }
 
+    }
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
 }

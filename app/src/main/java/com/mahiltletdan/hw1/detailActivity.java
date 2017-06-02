@@ -94,4 +94,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onRestart();
         Log.d(TAG, "onRestart()");
     }
+
+    /**
+     * Created by brikinesh on 6/1/2017.
+     */
+
+    public static class Constants {
+    }
 }
