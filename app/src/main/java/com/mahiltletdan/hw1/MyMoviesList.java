@@ -48,7 +48,7 @@ public class MyMoviesList extends AppCompatActivity {
 //
 //    };
 
-    String[][] movies = new String[15][2];
+    String[][] movies = new String[16][2];
     String url = "http://mahitletdan.com/MobileApp/ad340/myjson.json";
 
     String TAG = "MOVIES";
