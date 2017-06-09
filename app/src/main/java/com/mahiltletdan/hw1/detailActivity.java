@@ -8,16 +8,14 @@ import android.util.Log;
 import android.widget.TextView;
 
 /**
- * Created by Mahilet
- * on 4/15/17.
+ * Created by Mahilet hilemariam
+ * DetailActivity
  */
 
 
 public class DetailActivity extends AppCompatActivity {
     private static final String TAG= DetailActivity.class.getSimpleName();
-
-
-
+    // test comment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
